@@ -1,14 +1,23 @@
 # Python - Object-relational mapping
 
-This project demonstrates how to connect Python to MySQL databases
-using MySQLdb and how to work with databases using SQLAlchemy ORM.
+Python scripts that interact with MySQL using MySQLdb (tasks 0-5) and
+SQLAlchemy ORM (tasks 6-14).
 
-## Task 0 - Get all states
+## Requirements
 
-The script 0-select_states.py retrieves all states from a MySQL
-database and displays them ordered by state ID.
+Python 3.8.5, MySQLdb 2.0.x and SQLAlchemy 1.4.x are the versions used by
+the Holberton checker. Every executable script uses three database arguments:
+username, password and database. Tasks 2, 3, 5 and 10 accept an extra search
+argument.
 
 ## Usage
 
-Run the script with three arguments:
-MySQL username, MySQL password, and database name.
+```bash
+./0-select_states.py root password hbtn_0e_0_usa
+./3-my_safe_filter_states.py root password hbtn_0e_0_usa Arizona
+./7-model_state_fetch_all.py root password hbtn_0e_6_usa
+```
+
+Task 2 intentionally demonstrates insecure SQL string formatting for the
+SQL injection lesson; never reuse this pattern in production. Task 3
+uses SQL parameters to prevent SQL injection.

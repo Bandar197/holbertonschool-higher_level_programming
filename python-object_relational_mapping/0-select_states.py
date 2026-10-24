@@ -1,30 +1,21 @@
 #!/usr/bin/python3
-"""This is code link with database and read all states"""
+"""Display all states in ascending order of id."""
 
-import sys
 import MySQLdb
+import sys
 
 
 if __name__ == "__main__":
-    username = sys.argv[1]
-    password = sys.argv[2]
-    database = sys.argv[3]
-
     connection = MySQLdb.connect(
         host="localhost",
         port=3306,
-        user=username,
-        passwd=password,
-        db=database)
-
+        user=sys.argv[1],
+        passwd=sys.argv[2],
+        db=sys.argv[3]
+    )
     cursor = connection.cursor()
-
     cursor.execute("SELECT * FROM states ORDER BY id ASC")
-
-    rows = cursor.fetchall()
-
-    for row in rows:
+    for row in cursor.fetchall():
         print(row)
-
     cursor.close()
     connection.close()
