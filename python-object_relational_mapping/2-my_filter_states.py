@@ -14,8 +14,9 @@ if __name__ == "__main__":
         db=sys.argv[3]
     )
     cursor = connection.cursor()
-    query = "SELECT * FROM states WHERE BINARY name = %s ORDER BY id ASC"
-    cursor.execute(query, (sys.argv[4],))
+    state = connection.literal(sys.argv[4]).decode(connection.encoding)
+    query = "SELECT * FROM states WHERE BINARY name = {} ORDER BY id ASC"
+    cursor.execute(query.format(state))
     for row in cursor.fetchall():
         print(row)
     cursor.close()
