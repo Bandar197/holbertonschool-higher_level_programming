@@ -34,7 +34,7 @@ jobs:
       - name: Install Python and MySQL dependencies
         run: |
           sudo apt-get update -qq
-          sudo apt-get install -y default-libmysqlclient-dev pkg-config
+          sudo apt-get install -y default-libmysqlclient-dev pkg-config socat
           python -m pip install --upgrade pip
           python -m pip install mysqlclient==2.0.3 SQLAlchemy==1.4.46 pycodestyle==2.10.0
 
@@ -57,6 +57,9 @@ jobs:
       - name: Integration tests for all 15 tasks against MySQL 8
         working-directory: python-object_relational_mapping
         run: |
+          sudo mkdir -p /var/run/mysqld
+          sudo socat UNIX-LISTEN:/var/run/mysqld/mysqld.sock,fork,mode=777 TCP:127.0.0.1:3306 &
+          sleep 1
           python - <<'PY'
           import subprocess
           import sys
