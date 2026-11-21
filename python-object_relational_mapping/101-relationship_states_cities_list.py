@@ -3,8 +3,8 @@
 import sys
 from sqlalchemy import create_engine
 from urllib.parse import quote
-from sqlalchemy.orm import joinedload, sessionmaker
-from relationship_state import Base, State
+from sqlalchemy.orm import sessionmaker
+from relationship_state import State
 from relationship_city import City
 
 
@@ -14,7 +14,7 @@ if __name__ == '__main__':
     engine = create_engine(url)
     session = sessionmaker(bind=engine)()
     try:
-        rows = session.query(State).options(joinedload(State.cities))
+        rows = session.query(State)
         for state in rows.order_by(State.id):
             print('{}: {}'.format(state.id, state.name))
             for city in state.cities:
